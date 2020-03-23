@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "564396168961",
+    "firebase_url": "https://public-transport-252221.firebaseio.com",
+    "project_id": "public-transport-252221",
+    "storage_bucket": "public-transport-252221.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:564396168961:android:234e779c1c7d6395996d00",
+        "android_client_info": {
+          "package_name": "com.example.publictransport"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "564396168961-bqf5h5pcfk9s83gk6pgj1642mujm60fb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK-Qyz1s24Kh085zQBSZZ01lRhoOu__bo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "564396168961-bqf5h5pcfk9s83gk6pgj1642mujm60fb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
