@@ -2,52 +2,47 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "com.example.publictransport"
-        minSdkVersion 22
+        minSdkVersion 16
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
-
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-
     }
-
 }
-
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.cardview:cardview:1.0.0'
-
-    implementation 'com.google.firebase:firebase-firestore:21.4.1'
-    implementation 'uk.co.mgbramwell.geofire:geofire-android:0.0.2'
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
-    implementation 'com.google.android.libraries.places:places:2.2.0'
-
-    implementation 'com.github.imperiumlabs:GeoFirestore-Android:v1.5.0'
-
-    implementation 'org.neo4j.driver:neo4j-java-driver:4.0.0'
-
+    implementation 'com.google.android.material:material:1.2.0'
     implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
+    implementation group: 'androidx.legacy', name: 'legacy-support-v4', version: '1.0.0'
+
+    implementation('com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.42.6') {
+        exclude module: 'exifinterface'
+        exclude module: 'recyclerview'
+        exclude module: 'legacy-support-core-utils'
+    }
+    //implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v9:0.8.0'
+    implementation 'org.neo4j.driver:neo4j-java-driver:4.1.1'
+    implementation 'androidx.annotation:annotation:1.1.0'
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
-apply plugin: 'com.google.gms.google-services'

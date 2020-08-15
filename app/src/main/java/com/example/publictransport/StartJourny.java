@@ -54,19 +54,19 @@ public class StartJourny extends AppCompatActivity {
     public void drawLine(){
         String lineName = getIntent().getStringExtra("lineName");
         if (lineName != null) {
-            planJourney = new PlanJourney(lineName);
-            ArrayList<PolylineOptions> polylineOptions = planJourney.getPoints();
-            mapSetup.drawLine(polylineOptions);
+            //planJourney = new PlanJourney(lineName);
+            /*ArrayList<PolylineOptions> polylineOptions = planJourney.getPoints();
+            mapSetup.drawLine(polylineOptions);*/
         }
 
         String line1Name = getIntent().getStringExtra("line1Name");
         String line2Name = getIntent().getStringExtra("line2Name");
         if (line1Name != null && line2Name != null) {
             Log.d("StartJourney", "There is a line: " + line1Name);
-            planJourney = new PlanJourney(line1Name, line2Name);
-            ArrayList<PolylineOptions> polylineOptionsList = planJourney.getPoints();
+           /* planJourney = new PlanJourney(line1Name, line2Name);
+            ArrayList<PolylineOptions> polylineOptionsList = planJourney.getPoints();*/
             //Log.d("StartJourney", polylineOptions + " ");
-            mapSetup.drawLine(polylineOptionsList);
+            /*mapSetup.drawLine(polylineOptionsList);*/
         }
     }
 

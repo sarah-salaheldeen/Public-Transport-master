@@ -1,59 +1,42 @@
 package com.example.publictransport;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.mapbox.mapboxsdk.maps.MapView;
 
 public class SourceActivity extends AppCompatActivity {
 
-    MapSetup mapSetup;
+    private MapView mapView;
+    private MapSetup mapSetup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Mapbox.getInstance(this, getString(R.string.mapbox_access_token));
         setContentView(R.layout.activity_main);
 
         //change the text on the actionBar
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null)
-            actionBar.setTitle("Source");
+            actionBar.setTitle("Starting Point");
 
-        /** initializing the Map */
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        mapView = findViewById(R.id.mapView);
+        mapView.onCreate(savedInstanceState);
 
-        /** Initialize the Autocomplete search box . */
-        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.autocomplete_fragment);
+        mapSetup = new MapSetup(this, mapView);
+        mapSetup.getCurrentLocation();
 
-        //when we go back from destination activity to source activity => save destination location
-        if (getCallingActivity() != null) {
-            Log.i("SourceActivity", "getCallingActivity() != null");
-            if(getCallingActivity().getClassName().equals("DestinationActivity")){
-                Intent i = getIntent();
-                LatLng ll = i.getParcelableExtra("longLat_dataPrivider");
-            }
-        }
+        saveLocation();
 
-        else {
-            Log.i("SourceActivity", "getCallingActivity() = null");
-            //setting up google map
-            mapSetup = new MapSetup(this, mapFragment, autocompleteFragment);
-
-            //get user's last location
-            mapSetup.getLastLocation();
-
-            saveLocation();
-        }
     }
 
     //save source location and start DestinationActivity
@@ -63,11 +46,11 @@ public class SourceActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.i("SourceActivity", "mapSetup.getSourceOrDestLocation()" + mapSetup.getSourceOrDestLocation());
-                LatLng sourceOrDestLocation = mapSetup.getSourceOrDestLocation();
+                LatLng sourceLocation = mapSetup.getSourceOrDestLocation();
 
-                if(sourceOrDestLocation != null) {
+                if(sourceLocation != null) {
                     Bundle args = new Bundle();
-                    args.putParcelable("EXTRA_SOURCE_LOCATION", sourceOrDestLocation);
+                    args.putParcelable("EXTRA_SOURCE_LOCATION", sourceLocation);
                     Intent intent = new Intent(SourceActivity.this, DestinationActivity.class);
                     intent.putExtras(args);
                     //ActivityCompat.startActivityForResult(SourceActivity.this, intent, 0 , null);
@@ -76,5 +59,47 @@ public class SourceActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mapView.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mapView.onStop();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState);
     }
 }

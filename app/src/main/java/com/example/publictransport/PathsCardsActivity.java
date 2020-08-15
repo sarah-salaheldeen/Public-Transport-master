@@ -92,8 +92,8 @@ public class PathsCardsActivity extends AppCompatActivity {
         };
 
         //create an object of PlanJourney class
-        journey = new PlanJourney(sourceLocation, destinationLocation, this);
+        //journey = new PlanJourney(sourceLocation, destinationLocation, this);
 
-        journey.readDataFromFirestore();
+        //journey.readDataFromFirestore();
     }
 }
